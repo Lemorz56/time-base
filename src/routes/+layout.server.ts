@@ -11,16 +11,16 @@
 //     };
 // };
 
-import type { LayoutServerLoad } from './$types';
+import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = (({ locals }) => {
-    if (locals.user) {
-        return {
-            user: locals.user
-        };
-    }
-
+  if (locals.user) {
     return {
-        user: undefined
+      user: locals.user,
     };
+  }
+
+  return {
+    user: undefined,
+  };
 }) satisfies LayoutServerLoad;
