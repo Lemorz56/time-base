@@ -1,53 +1,54 @@
 <script>
-	import Header from './Header.svelte';
-	import './styles.css';
+    // @ts-nocheck
+    import '../app.css';
+    export let data;
 </script>
 
-<div class="app">
-	<Header />
-
-	<main>
-		<slot />
-	</main>
-
-	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-	</footer>
+<div class="min-h-full">
+    <nav class="navbar bg-base-100 border-b">
+        <div class="flex-1">
+            <a href="/" class="btn btn-ghost normal-case text-xl">Time-Base</a>
+        </div>
+        <div class="flex-none">
+            {#if !data.user}
+                <div class="dropdown dropdown-end">
+                    <a href="/login" class="btn btn-primary">Login</a>
+                    <a href="/register" class="btn btn-secondary">Register</a>
+                </div>
+            {:else}
+                <div class="dropdown dropdown-end mr-4">
+                    <a href="/projects/new" class="btn btn-primary btn-outline">Add Project</a>
+                </div>
+                <div class="dropdown dropdown-end">
+                    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+                    <!-- svelte-ignore a11y-label-has-associated-control -->
+                    <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                        <div class="w-10 rounded-full">
+                            <img src="https://loremflickr.com/80/80/human" alt="User avatar" /> <!--  https://placeimg.com/80/80/people-->
+                        </div>
+                    </label>
+                    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+                    <ul
+                        tabindex="0"
+                        class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                        >
+                        <li>
+                            <a href="/my/projects" class="justify-between">My Projects</a>
+                        </li>
+                        <li><a href="/my/settings">Settings</a></li>
+                        <li>
+                            <form action="/logout" method="POST">
+                                <button type="submit" class="w-full text-start">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            {/if}
+        </div>
+    </nav>
+    <div class="py-10">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <slot />
+        </div>
+    </div>
 </div>
-
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
-</style>
