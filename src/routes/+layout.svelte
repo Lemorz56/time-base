@@ -1,5 +1,6 @@
 <script>
   // @ts-nocheck
+  import { getImageUrl } from "$lib/utils";
   import "../app.css";
   export let data;
 </script>
@@ -27,10 +28,15 @@
           <label tabindex="0" class="btn-ghost btn-circle avatar btn">
             <div class="w-10 rounded-full">
               <img
-                src="https://loremflickr.com/80/80/human"
+                src={data.user?.avatar
+                  ? getImageUrl(
+                      data.user?.collectionId,
+                      data.user?.id,
+                      data.user?.avatar
+                    )
+                  : `https://ui-avatars.com/api/?name=${data.user?.name}`}
                 alt="User avatar"
               />
-              <!--  https://placeimg.com/80/80/people-->
             </div>
           </label>
           <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
